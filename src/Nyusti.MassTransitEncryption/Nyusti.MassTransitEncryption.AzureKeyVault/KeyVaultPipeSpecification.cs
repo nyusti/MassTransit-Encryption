@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using GreenPipes;
     using MassTransit;
     using MassTransit.Builders;
@@ -45,7 +44,30 @@
         /// <inheritdoc/>
         public IEnumerable<ValidationResult> Validate()
         {
-            return Enumerable.Empty<ValidationResult>();
+            if (this.encryptionKey == null && this.keyResolver == null)
+            {
+                yield return ValidationResultExtensions.Failure(this, "No encryption key or key resolver factory set!");
+            }
+
+            if (this.encryptionKey != null)
+            {
+                yield return ValidationResultExtensions.Success(this, "Encryption key factory set.");
+
+                if (this.keyResolver == null)
+                {
+                    yield return ValidationResultExtensions.Warning(this, "Key resolver factory is not set. Only encryption will be supported.");
+                }
+            }
+
+            if (this.keyResolver != null)
+            {
+                yield return ValidationResultExtensions.Success(this, "Key resolver factory set.");
+
+                if (this.encryptionKey == null)
+                {
+                    yield return ValidationResultExtensions.Warning(this, "Encryption key factory is not set. Only decryption will be supported.");
+                }
+            }
         }
 
         private IMessageSerializer GetMessageSerializer()

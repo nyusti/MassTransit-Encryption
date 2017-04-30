@@ -41,12 +41,7 @@
         /// <exception cref="ArgumentNullException">encryptionKey is null</exception>
         public EncryptedMessageSerializer(IKey encryptionKey)
         {
-            if (encryptionKey == null)
-            {
-                throw new ArgumentNullException(nameof(encryptionKey));
-            }
-
-            this.encryptionKey = encryptionKey;
+            this.encryptionKey = encryptionKey ?? throw new ArgumentNullException(nameof(encryptionKey));
             this.serilaizer = BsonMessageSerializer.Serializer;
         }
 

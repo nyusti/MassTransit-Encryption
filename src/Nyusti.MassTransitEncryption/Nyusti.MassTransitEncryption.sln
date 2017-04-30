@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nyusti.MassTransitEncryptio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solutionitems", ".solutionitems", "{46CAF51A-61B4-4317-B9FB-8AF27A7290AB}"
 	ProjectSection(SolutionItems) = preProject
+		..\Nyusti.MassTransitEncryption.AzureKeyVault.ruleset = ..\Nyusti.MassTransitEncryption.AzureKeyVault.ruleset
 		..\..\README.md = ..\..\README.md
 	EndProjectSection
 EndProject
