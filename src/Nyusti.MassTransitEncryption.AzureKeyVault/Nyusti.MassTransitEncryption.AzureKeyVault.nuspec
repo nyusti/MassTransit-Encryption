@@ -1,0 +1,28 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <authors>$authors$</authors>
+    <owners>nyusti</owners>
+    <projectUrl>https://github.com/nyusti/MassTransit-Encryption</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <releaseNotes>
+      1.0.0
+      -Initial release
+    </releaseNotes>
+    <copyright>$copyright$</copyright>
+    <description>$description$</description>
+    <tags>MassTransit ServiceBus encryption azure KeyVault</tags>
+    <dependencies>
+      <dependency id="Microsoft.Azure.KeyVault.Core" version="3.5.7" />
+      <dependency id="Newtonsoft.Json.Bson" version="1.0.1" />
+      <dependency id="MassTransit" version="3.5.7" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\$configuration$\$id$.dll" target="lib\net462\" />
+    <file src="bin\$configuration$\$id$.xml" target="lib\net462\" />
+    <file src="bin\$configuration$\$id$.pdb" target="lib\net462\" />
+  </files>
+</package>
