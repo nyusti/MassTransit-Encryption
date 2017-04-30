@@ -31,8 +31,18 @@
         /// <exception cref="ArgumentNullException">deserializer or keyResolver is null</exception>
         public EncryptedMessageDeserializer(JsonSerializer deserializer, IKeyResolver keyResolver)
         {
-            this.keyResolver = keyResolver ?? throw new ArgumentNullException(nameof(keyResolver));
-            this.deserializer = deserializer ?? throw new ArgumentNullException(nameof(deserializer));
+            if (keyResolver == null)
+            {
+                throw new ArgumentNullException(nameof(keyResolver));
+            }
+
+            if (deserializer == null)
+            {
+                throw new ArgumentNullException(nameof(deserializer));
+            }
+
+            this.keyResolver = keyResolver;
+            this.deserializer = deserializer;
             this.objectTypeDeserializer = new ObjectTypeDeserializer(this.deserializer);
         }
 
