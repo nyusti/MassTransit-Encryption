@@ -11,7 +11,6 @@
       1.0.0
       -Initial release
     </releaseNotes>
-    <copyright>$copyright$</copyright>
     <description>$description$</description>
     <tags>MassTransit ServiceBus encryption azure KeyVault</tags>
     <dependencies>
