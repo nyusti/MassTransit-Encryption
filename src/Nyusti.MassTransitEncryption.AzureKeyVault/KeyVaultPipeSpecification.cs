@@ -37,8 +37,15 @@
                 throw new ArgumentNullException(nameof(builder));
             }
 
-            builder.SetMessageSerializer(new SerializerFactory(this.GetMessageSerializer));
-            builder.AddMessageDeserializer(EncryptedMessageSerializer.EncryptedContentType, new DeserializerFactory(this.GetMessageDeserializer));
+            if (this.encryptionKey != null)
+            {
+                builder.SetMessageSerializer(this.GetMessageSerializer);
+            }
+
+            if (this.keyResolver != null)
+            {
+                builder.AddMessageDeserializer(EncryptedMessageSerializer.EncryptedContentType, this.GetMessageDeserializer);
+            }
         }
 
         /// <inheritdoc/>
@@ -72,22 +79,12 @@
 
         private IMessageSerializer GetMessageSerializer()
         {
-            if (this.encryptionKey == null)
-            {
-                throw new InvalidOperationException("Encryption key must be set to support message sending.");
-            }
-
-            return new EncryptedMessageSerializer(this.encryptionKey());
+            return new EncryptedMessageSerializer(this.encryptionKey);
         }
 
         private IMessageDeserializer GetMessageDeserializer()
         {
-            if (this.keyResolver == null)
-            {
-                throw new InvalidOperationException("Decryption key resolver must be set to support message receiving.");
-            }
-
-            return new EncryptedMessageDeserializer(BsonMessageSerializer.Deserializer, this.keyResolver());
+            return new EncryptedMessageDeserializer(BsonMessageSerializer.Deserializer, this.keyResolver);
         }
     }
 }

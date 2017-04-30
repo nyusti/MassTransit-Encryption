@@ -21,7 +21,7 @@
     {
         private readonly JsonSerializer deserializer;
         private readonly IObjectTypeDeserializer objectTypeDeserializer;
-        private readonly IKeyResolver keyResolver;
+        private readonly Func<IKeyResolver> keyResolver;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EncryptedMessageDeserializer"/> class.
@@ -30,6 +30,21 @@
         /// <param name="keyResolver">The key resolver.</param>
         /// <exception cref="ArgumentNullException">deserializer or keyResolver is null</exception>
         public EncryptedMessageDeserializer(JsonSerializer deserializer, IKeyResolver keyResolver)
+            : this(deserializer, () => keyResolver)
+        {
+            if (keyResolver == null)
+            {
+                throw new ArgumentNullException(nameof(keyResolver));
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EncryptedMessageDeserializer"/> class.
+        /// </summary>
+        /// <param name="deserializer">The deserializer.</param>
+        /// <param name="keyResolver">The key resolver.</param>
+        /// <exception cref="ArgumentNullException">keyResolver or deserializer</exception>
+        public EncryptedMessageDeserializer(JsonSerializer deserializer, Func<IKeyResolver> keyResolver)
         {
             this.keyResolver = keyResolver ?? throw new ArgumentNullException(nameof(keyResolver));
             this.deserializer = deserializer ?? throw new ArgumentNullException(nameof(deserializer));
@@ -58,7 +73,9 @@
                     throw new NotSupportedException($"Version of {encryptionData?.EncryptionAgent?.Protocol ?? "(Not set)"} encryption agent is not supported.");
                 }
 
-                var result = this.keyResolver.ResolveKeyAsync(encryptionData.WrappedContentKey.KeyId, receiveContext.CancellationToken).ConfigureAwait(false).GetAwaiter().GetResult();
+                var resolver = this.keyResolver();
+
+                var result = resolver.ResolveKeyAsync(encryptionData.WrappedContentKey.KeyId, receiveContext.CancellationToken).ConfigureAwait(false).GetAwaiter().GetResult();
                 var key = result.UnwrapKeyAsync(encryptionData.WrappedContentKey.EncryptedKey, encryptionData.WrappedContentKey.Algorithm, receiveContext.CancellationToken).ConfigureAwait(false).GetAwaiter().GetResult();
 
                 MessageEnvelope envelope = null;

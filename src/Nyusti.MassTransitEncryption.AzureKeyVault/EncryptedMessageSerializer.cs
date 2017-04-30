@@ -32,7 +32,7 @@
         private static readonly ContentType EncryptedContentTypeValue = new ContentType(ContentTypeHeaderValue);
 
         private readonly JsonSerializer serilaizer;
-        private readonly IKey encryptionKey;
+        private readonly Func<IKey> encryptionKey;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EncryptedMessageSerializer"/> class.
@@ -40,6 +40,20 @@
         /// <param name="encryptionKey">The encryption key.</param>
         /// <exception cref="ArgumentNullException">encryptionKey is null</exception>
         public EncryptedMessageSerializer(IKey encryptionKey)
+            : this(() => encryptionKey)
+        {
+            if (encryptionKey == null)
+            {
+                throw new ArgumentNullException(nameof(encryptionKey));
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EncryptedMessageSerializer"/> class.
+        /// </summary>
+        /// <param name="encryptionKey">The encryption key.</param>
+        /// <exception cref="ArgumentNullException">encryptionKey is null</exception>
+        public EncryptedMessageSerializer(Func<IKey> encryptionKey)
         {
             this.encryptionKey = encryptionKey ?? throw new ArgumentNullException(nameof(encryptionKey));
             this.serilaizer = BsonMessageSerializer.Serializer;
@@ -101,8 +115,10 @@
                     EncryptionAgent = new EncryptionAgent("1.0", EncryptionAlgorithm.AES_CBC_256)
                 };
 
-                var result = await this.encryptionKey.WrapKeyAsync(provider.Key, null, cancellationToken).ConfigureAwait(false);
-                data.WrappedContentKey = new WrappedKey(this.encryptionKey.Kid, result.Item1, result.Item2);
+                var key = this.encryptionKey();
+
+                var result = await key.WrapKeyAsync(provider.Key, null, cancellationToken).ConfigureAwait(false);
+                data.WrappedContentKey = new WrappedKey(key.Kid, result.Item1, result.Item2);
                 data.ContentEncryptionIV = provider.IV;
                 metadata.Set(EncryptionHeaderDataKey, JsonConvert.SerializeObject(data));
                 return provider.CreateEncryptor();
