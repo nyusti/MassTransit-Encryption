@@ -42,7 +42,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>nyusti.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>nyusti.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GreenPipes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
@@ -88,7 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="nyusti.pfx" />
+    <None Include="nyusti.snk" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
