@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following set of attributes.
 // Change these attribute values to modify the information associated with an assembly.
 [assembly: AssemblyTitle("Nyusti.MassTransitEncryption.AzureKeyVault")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Azure Key Vault based message encryption support for MassTransit")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Richárd Nyüsti")]
 [assembly: AssemblyProduct("Nyusti.MassTransitEncryption.AzureKeyVault")]
