@@ -11,6 +11,7 @@
       1.0.0
       -Initial release
     </releaseNotes>
+    <copyright>Copyright © Richárd Nyüsti 2017</copyright>
     <description>Azure Key Vault based message encryption support for MassTransit</description>
     <tags>MassTransit ServiceBus encryption azure KeyVault</tags>
     <dependencies>
