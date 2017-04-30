@@ -15,7 +15,7 @@
     <description>Azure Key Vault based message encryption support for MassTransit</description>
     <tags>MassTransit ServiceBus encryption azure KeyVault</tags>
     <dependencies>
-      <dependency id="Microsoft.Azure.KeyVault.Core" version="3.5.7" />
+      <dependency id="Microsoft.Azure.KeyVault.Core" version="1.0.0" />
       <dependency id="Newtonsoft.Json.Bson" version="1.0.1" />
       <dependency id="MassTransit" version="3.5.7" />
     </dependencies>
