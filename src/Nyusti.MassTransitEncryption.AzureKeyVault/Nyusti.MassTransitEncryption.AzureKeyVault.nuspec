@@ -3,7 +3,7 @@
   <metadata>
     <id>$id$</id>
     <version>$version$</version>
-    <authors>$authors$</authors>
+    <authors>$author$</authors>
     <owners>nyusti</owners>
     <projectUrl>https://github.com/nyusti/MassTransit-Encryption</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
