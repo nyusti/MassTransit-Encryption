@@ -31,7 +31,7 @@
 
         private static readonly ContentType EncryptedContentTypeValue = new ContentType(ContentTypeHeaderValue);
 
-        private readonly JsonSerializer serilaizer;
+        private readonly JsonSerializer serializer;
         private readonly Func<IKey> encryptionKey;
 
         /// <summary>
@@ -56,7 +56,7 @@
         public EncryptedMessageSerializer(Func<IKey> encryptionKey)
         {
             this.encryptionKey = encryptionKey ?? throw new ArgumentNullException(nameof(encryptionKey));
-            this.serilaizer = BsonMessageSerializer.Serializer;
+            this.serializer = BsonMessageSerializer.Serializer;
         }
 
         /// <summary>
@@ -91,7 +91,7 @@
             using (var encryptStream = new DisposingCryptoStream(stream, transform, CryptoStreamMode.Write))
             using (var bsonWriter = new BsonDataWriter(encryptStream))
             {
-                this.serilaizer.Serialize(bsonWriter, jsonMessageEnvelope, typeof(MessageEnvelope));
+                this.serializer.Serialize(bsonWriter, jsonMessageEnvelope, typeof(MessageEnvelope));
                 bsonWriter.Flush();
             }
         }
