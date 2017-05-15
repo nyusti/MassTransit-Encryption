@@ -16,7 +16,7 @@
         Func<IKey> EncryptionKey { get; set; }
 
         /// <summary>
-        /// Gets or sets the key resolver. The key reslver will try to located the decryption key by
+        /// Gets or sets the key resolver. The key resolver will be used to locate the decryption key based on
         /// the message metadata. This has to be set for message decryption.
         /// </summary>
         /// <value>The key resolver.</value>
