@@ -17,9 +17,9 @@
 
         public AzureServiceBusTestFixture(string inputQueueName = null, Uri serviceUri = null, ServiceBusTokenProviderSettings settings = null)
             : this(new AzureServiceBusTestHarness(
-                serviceUri ?? ServiceBusEnvironment.CreateServiceUri("sb", "masstransit-build", "MassTransit.AzureServiceBusTransport.Tests"),
-                settings?.KeyName ?? ((ServiceBusTokenProviderSettings)new TestAzureServiceBusAccountSettings()).KeyName,
-                settings?.SharedAccessKey ?? ((ServiceBusTokenProviderSettings)new TestAzureServiceBusAccountSettings()).SharedAccessKey,
+                serviceUri ?? ServiceBusEnvironment.CreateServiceUri("sb", "nyusti", ""),
+                settings?.KeyName ?? ((ServiceBusTokenProviderSettings)new BasicAzureServiceBusAccountSettings()).KeyName,
+                settings?.SharedAccessKey ?? ((ServiceBusTokenProviderSettings)new BasicAzureServiceBusAccountSettings()).SharedAccessKey,
                 inputQueueName))
         {
         }

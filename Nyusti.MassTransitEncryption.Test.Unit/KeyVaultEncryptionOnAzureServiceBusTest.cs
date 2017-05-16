@@ -3,18 +3,15 @@
     using System.Threading.Tasks;
     using MassTransit;
     using MassTransit.AzureServiceBusTransport;
-    using Microsoft.Azure.KeyVault;
-    using Microsoft.Azure.KeyVault.Core;
-    using NSubstitute;
     using NUnit.Framework;
 
     [TestFixture]
-    public class AzureKeyVaultEncryptionTest : AzureServiceBusTestFixture
+    public class KeyVaultEncryptionOnAzureServiceBusTest : AzureServiceBusTestFixture
     {
         private Task<ConsumeContext<PingMessage>> _handler;
 
         [Test]
-        public async Task Should_succeed()
+        public async Task AzureServiceBus_EncryptMessage()
         {
             await Bus.Publish(new PingMessage());
 
@@ -30,15 +27,12 @@
 
         protected override void ConfigureServiceBusBusHost(IServiceBusBusFactoryConfigurator configurator, IServiceBusHost host)
         {
-            const string testKeyId = "TestKey";
+            var encrpytionConfiguration = new TestKeyProvider();
 
-            var keyResolver = Substitute.For<IKeyResolver>();
-            keyResolver.ResolveKeyAsync(testKeyId, TestCancellationToken).Returns(new Task<IKey>(() => new RsaKey(testKeyId)));
-
-            configurator.UseAzureKeyVaultEncryption(kv =>
+            configurator.UseAzureKeyVaultEncryption((kv) =>
             {
-                kv.EncryptionKey = () => new RsaKey(testKeyId);
-                kv.KeyResolver = () => keyResolver;
+                kv.EncryptionKey = encrpytionConfiguration.EncryptionKey;
+                kv.KeyResolver = encrpytionConfiguration.KeyResolver;
             });
 
             base.ConfigureServiceBusBusHost(configurator, host);

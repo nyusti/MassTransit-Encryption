@@ -16,10 +16,7 @@
 
         public AzureServiceBusTestHarness(Uri serviceUri, string sharedAccessKeyName, string sharedAccessKeyValue, string inputQueueName = null)
         {
-            if (serviceUri == null)
-                throw new ArgumentNullException(nameof(serviceUri));
-
-            _serviceUri = serviceUri;
+            _serviceUri = serviceUri ?? throw new ArgumentNullException(nameof(serviceUri));
             SharedAccessKeyName = sharedAccessKeyName;
             SharedAccessKeyValue = sharedAccessKeyValue;
 

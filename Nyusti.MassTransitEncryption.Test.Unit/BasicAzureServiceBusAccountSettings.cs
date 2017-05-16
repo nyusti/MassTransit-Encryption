@@ -6,8 +6,8 @@
 
     public class BasicAzureServiceBusAccountSettings : ServiceBusTokenProviderSettings
     {
-        private const string KeyName = "MassTransitBuild";
-        private const string SharedAccessKey = "AVoxltiFrIsOQsdlCgtbLtVGjcEpXH/9ZM1q/55xjoM=";
+        private const string KeyName = "RootManageSharedAccessKey";
+        private const string SharedAccessKey = "+6AqGOJF2RJXtlGLYZu7ru4jcibFruPnWOMSLIl8o40=";
         private readonly TokenScope _tokenScope;
         private readonly TimeSpan _tokenTimeToLive;
 
