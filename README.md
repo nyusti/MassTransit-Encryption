@@ -1,6 +1,8 @@
 # MassTransit-Encryption
 Transparent encryption support for MassTransit built on Azure Key Vault
 
+**CURRENTLY WORKING ONLY FOR AZURE SERVICE BUS**
+
 ## Usage
 To configure the encryption use the `UseAzureKeyVaultEncryption` extension method on the bus factory configuration. You have to set the `encryptionKey` factory function when you want to encrypt outgoing messages.
 Set the `keyResolver` factory function if you want to decrypt incoming messages.
