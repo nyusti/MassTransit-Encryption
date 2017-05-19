@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.4
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nyusti.MassTransitEncryption.AzureKeyVault", "src\Nyusti.MassTransitEncryption.AzureKeyVault\Nyusti.MassTransitEncryption.AzureKeyVault.csproj", "{22DE259D-CE5C-4E93-8EFA-D495B2504707}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nyusti.MassTransitEncryption.Test.Unit", "Nyusti.MassTransitEncryption.Test.Unit\Nyusti.MassTransitEncryption.Test.Unit.csproj", "{A59E72BD-F15F-43D2-9090-0EB8FC1F0E1C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nyusti.MassTransitEncryption.Test.Unit", "src\Nyusti.MassTransitEncryption.Test.Unit\Nyusti.MassTransitEncryption.Test.Unit.csproj", "{A59E72BD-F15F-43D2-9090-0EB8FC1F0E1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
