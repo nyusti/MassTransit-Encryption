@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nyusti.MassTransitEncryptio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nyusti.MassTransitEncryption.Test.Unit", "src\Nyusti.MassTransitEncryption.Test.Unit\Nyusti.MassTransitEncryption.Test.Unit.csproj", "{A59E72BD-F15F-43D2-9090-0EB8FC1F0E1C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solutionitems", ".solutionitems", "{412FEEC1-0625-4A7F-98C7-B4267B11C031}"
+	ProjectSection(SolutionItems) = preProject
+		GitVersion.yml = GitVersion.yml
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
