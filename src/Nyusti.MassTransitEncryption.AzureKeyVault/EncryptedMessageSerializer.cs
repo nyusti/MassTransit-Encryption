@@ -84,9 +84,7 @@
             }
 
             context.ContentType = EncryptedMessageSerializer.EncryptedContentType;
-
             var jsonMessageEnvelope = new JsonMessageEnvelope(context, context.Message, TypeMetadataCache<T>.MessageTypeNames);
-
             using (var transform = this.CreateAndSetEncryptionContext(context.Headers, context.CancellationToken).ConfigureAwait(false).GetAwaiter().GetResult())
             using (var encryptStream = new DisposingCryptoStream(stream, transform, CryptoStreamMode.Write))
             using (var bsonWriter = new BsonDataWriter(encryptStream))
