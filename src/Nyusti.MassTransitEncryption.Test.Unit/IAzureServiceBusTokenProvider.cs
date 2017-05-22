@@ -10,7 +10,7 @@
         /// <summary>
         /// Gets the token provider.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The token provider</returns>
         TokenProvider GetTokenProvider();
     }
 }

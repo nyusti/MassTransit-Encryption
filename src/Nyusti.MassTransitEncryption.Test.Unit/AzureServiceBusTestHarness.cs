@@ -8,6 +8,7 @@
     using Microsoft.ServiceBus;
 
     /// <summary>
+    /// Azure service bus test harness
     /// </summary>
     /// <seealso cref="MassTransit.Testing.BusTestHarness"/>
     public class AzureServiceBusTestHarness : BusTestHarness
@@ -15,7 +16,7 @@
         /// <summary>
         /// The log
         /// </summary>
-        private static readonly ILog log = Logger.Get<AzureServiceBusTestHarness>();
+        private static readonly ILog Log = Logger.Get<AzureServiceBusTestHarness>();
 
         /// <summary>
         /// The service URI
@@ -50,19 +51,19 @@
         }
 
         /// <summary>
-        /// Occurs when [on configure service bus bus].
+        /// Gets or sets gets the on configure service bus bus
         /// </summary>
-        public Action<IServiceBusBusFactoryConfigurator> OnConfigureServiceBusBus;
+        public Action<IServiceBusBusFactoryConfigurator> OnConfigureServiceBusBus { get; set; }
 
         /// <summary>
-        /// Occurs when [on configure service bus bus host].
+        /// Gets or sets gets occurs when [on configure service bus bus host].
         /// </summary>
-        public Action<IServiceBusBusFactoryConfigurator, IServiceBusHost> OnConfigureServiceBusBusHost;
+        public Action<IServiceBusBusFactoryConfigurator, IServiceBusHost> OnConfigureServiceBusBusHost { get; set; }
 
         /// <summary>
-        /// Occurs when [on configure service bus receive endpoint].
+        /// Gets or sets gets occurs when [on configure service bus receive endpoint].
         /// </summary>
-        public Action<IServiceBusReceiveEndpointConfigurator> OnConfigureServiceBusReceiveEndpoint;
+        public Action<IServiceBusReceiveEndpointConfigurator> OnConfigureServiceBusReceiveEndpoint { get; set; }
 
         /// <summary>
         /// Gets the name of the shared access key.
@@ -100,9 +101,7 @@
         /// <value>The host.</value>
         public IServiceBusHost Host { get; private set; }
 
-        /// <summary>
-        /// The address of the input queue receive endpoint
-        /// </summary>
+        /// <inheritdoc/>
         public override Uri InputQueueAddress => this.inputQueueAddress;
 
         /// <summary>
@@ -133,15 +132,12 @@
             this.OnConfigureServiceBusReceiveEndpoint?.Invoke(configurator);
         }
 
-        /// <summary>
-        /// Creates the bus.
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc/>
         protected override IBusControl CreateBus()
         {
             return MassTransit.Bus.Factory.CreateUsingAzureServiceBus(x =>
             {
-                Host = x.Host(serviceUri, h =>
+                this.Host = x.Host(this.serviceUri, h =>
                 {
                     h.SharedAccessSignature(s =>
                     {
@@ -155,9 +151,9 @@
                 this.ConfigureBus(x);
                 this.ConfigureServiceBusBus(x);
                 x.UseServiceBusMessageScheduler();
-                this.ConfigureServiceBusBusHost(x, Host);
+                this.ConfigureServiceBusBusHost(x, this.Host);
 
-                x.ReceiveEndpoint(Host, InputQueueName, e =>
+                x.ReceiveEndpoint(this.Host, this.InputQueueName, e =>
                 {
                     this.ConfigureReceiveEndpoint(e);
                     this.ConfigureServiceBusReceiveEndpoint(e);

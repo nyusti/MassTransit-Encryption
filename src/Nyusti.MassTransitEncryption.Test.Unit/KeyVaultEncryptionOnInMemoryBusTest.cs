@@ -27,24 +27,18 @@
         /// <returns>Task reference</returns>
         public async Task InMemoryBus_EncryptMessage()
         {
-            await Bus.Publish(new PingMessage()).ConfigureAwait(false);
+            await this.Bus.Publish(new PingMessage()).ConfigureAwait(false);
             ConsumeContext<PingMessage> received = await this.handler.ConfigureAwait(false);
             Assert.AreEqual(AzureKeyVault.EncryptedMessageSerializer.EncryptedContentType, received.ReceiveContext.ContentType);
         }
 
-        /// <summary>
-        /// Configures the in memory receive endpoint.
-        /// </summary>
-        /// <param name="configurator">The configurator.</param>
+        /// <inheritdoc/>
         protected override void ConfigureInMemoryReceiveEndpoint(IInMemoryReceiveEndpointConfigurator configurator)
         {
             this.handler = base.Handled<PingMessage>(configurator);
         }
 
-        /// <summary>
-        /// Pres the create bus.
-        /// </summary>
-        /// <param name="configurator">The configurator.</param>
+        /// <inheritdoc/>
         protected override void PreCreateBus(IInMemoryBusFactoryConfigurator configurator)
         {
             var encrpytionConfiguration = new TestKeyProvider();

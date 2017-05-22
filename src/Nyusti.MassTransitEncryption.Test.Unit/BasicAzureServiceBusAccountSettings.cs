@@ -13,12 +13,12 @@
         /// <summary>
         /// The key name
         /// </summary>
-        private const string keyName = "RootManageSharedAccessKey";
+        private const string KeyName = "RootManageSharedAccessKey";
 
         /// <summary>
         /// The shared access key
         /// </summary>
-        private const string sharedAccessKey = "secret";
+        private const string SharedAccessKey = "secret";
 
         /// <summary>
         /// The token scope
@@ -43,13 +43,13 @@
         /// Gets the name of the key.
         /// </summary>
         /// <value>The name of the key.</value>
-        string ServiceBusTokenProviderSettings.KeyName { get; } = keyName;
+        string ServiceBusTokenProviderSettings.KeyName { get; } = KeyName;
 
         /// <summary>
         /// Gets the shared access key.
         /// </summary>
         /// <value>The shared access key.</value>
-        string ServiceBusTokenProviderSettings.SharedAccessKey { get; } = sharedAccessKey;
+        string ServiceBusTokenProviderSettings.SharedAccessKey { get; } = SharedAccessKey;
 
         /// <summary>
         /// Gets the token time to live.
@@ -59,7 +59,7 @@
         {
             get
             {
-                return tokenTimeToLive;
+                return this.tokenTimeToLive;
             }
         }
 
@@ -71,7 +71,7 @@
         {
             get
             {
-                return tokenScope;
+                return this.tokenScope;
             }
         }
     }

@@ -11,6 +11,7 @@
     using NUnit.Framework;
 
     /// <summary>
+    /// Azure service bus test fixture
     /// </summary>
     /// <seealso cref="MassTransit.TestFramework.BusTestFixture"/>
     [TestFixture]
@@ -19,7 +20,7 @@
         /// <summary>
         /// The log
         /// </summary>
-        private static readonly ILog log = Logger.Get<AzureServiceBusTestFixture>();
+        private static readonly ILog Log = Logger.Get<AzureServiceBusTestFixture>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AzureServiceBusTestFixture"/> class.
@@ -29,7 +30,7 @@
         /// <param name="settings">The settings.</param>
         public AzureServiceBusTestFixture(string inputQueueName = null, Uri serviceUri = null, ServiceBusTokenProviderSettings settings = null)
             : this(new AzureServiceBusTestHarness(
-                serviceUri ?? ServiceBusEnvironment.CreateServiceUri("sb", "nyusti", ""),
+                serviceUri ?? ServiceBusEnvironment.CreateServiceUri("sb", "nyusti", string.Empty),
                 settings?.KeyName ?? ((ServiceBusTokenProviderSettings)new BasicAzureServiceBusAccountSettings()).KeyName,
                 settings?.SharedAccessKey ?? ((ServiceBusTokenProviderSettings)new BasicAzureServiceBusAccountSettings()).SharedAccessKey,
                 inputQueueName))
@@ -44,10 +45,10 @@
             : base(harness)
         {
             this.AzureServiceBusTestHarness = harness;
-            this.AzureServiceBusTestHarness.OnConnectObservers += ConnectObservers;
-            this.AzureServiceBusTestHarness.OnConfigureServiceBusBus += ConfigureServiceBusBus;
-            this.AzureServiceBusTestHarness.OnConfigureServiceBusBusHost += ConfigureServiceBusBusHost;
-            this.AzureServiceBusTestHarness.OnConfigureServiceBusReceiveEndpoint += ConfigureServiceBusReceiveEndpoint;
+            this.AzureServiceBusTestHarness.OnConnectObservers += this.ConnectObservers;
+            this.AzureServiceBusTestHarness.OnConfigureServiceBusBus += this.ConfigureServiceBusBus;
+            this.AzureServiceBusTestHarness.OnConfigureServiceBusBusHost += this.ConfigureServiceBusBusHost;
+            this.AzureServiceBusTestHarness.OnConfigureServiceBusReceiveEndpoint += this.ConfigureServiceBusReceiveEndpoint;
         }
 
         /// <summary>
@@ -57,13 +58,13 @@
         protected string InputQueueName => this.AzureServiceBusTestHarness.InputQueueName;
 
         /// <summary>
-        /// The sending endpoint for the InputQueue
+        /// Gets the input queue send endpoint.
         /// </summary>
         /// <value>The input queue send endpoint.</value>
         protected ISendEndpoint InputQueueSendEndpoint => this.AzureServiceBusTestHarness.InputQueueSendEndpoint;
 
         /// <summary>
-        /// The sending endpoint for the Bus
+        /// Gets the bus send endpoint.
         /// </summary>
         /// <value>The bus send endpoint.</value>
         protected ISendEndpoint BusSendEndpoint => this.AzureServiceBusTestHarness.BusSendEndpoint;
@@ -101,7 +102,7 @@
         /// <summary>
         /// Setups the azure service bus test fixture.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Task reference</returns>
         [OneTimeSetUp]
         public Task SetupAzureServiceBusTestFixture()
         {
@@ -111,7 +112,7 @@
         /// <summary>
         /// Tears down in memory test fixture.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Task reference</returns>
         [OneTimeTearDown]
         public Task TearDownInMemoryTestFixture()
         {

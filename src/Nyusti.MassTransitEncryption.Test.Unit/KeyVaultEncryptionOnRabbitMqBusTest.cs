@@ -2,15 +2,16 @@
 {
     using System.Threading.Tasks;
     using MassTransit;
-    using MassTransit.AzureServiceBusTransport;
+    using MassTransit.RabbitMqTransport;
     using NUnit.Framework;
+    using Nyusti.MassTransitEncryption.AzureKeyVault;
 
     /// <summary>
-    /// Azure key vault encryption tests
+    /// Key vault encryption test on RabbitMQ
     /// </summary>
-    /// <seealso cref="Nyusti.MassTransitEncryption.Test.Unit.AzureServiceBusTestFixture"/>
+    /// <seealso cref="Nyusti.MassTransitEncryption.Test.Unit.RabbitMqTestFixture"/>
     [TestFixture]
-    public class KeyVaultEncryptionOnAzureServiceBusTest : AzureServiceBusTestFixture
+    public class KeyVaultEncryptionOnRabbitMqBusTest : RabbitMqTestFixture
     {
         /// <summary>
         /// The handler
@@ -18,28 +19,30 @@
         private Task<ConsumeContext<PingMessage>> handler;
 
         /* disabled until header handling is fixed
-        [Test]
+          [Test]
         */
 
         /// <summary>
-        /// Azures the service bus encrypt message.
+        /// RabbitMQ encrypt message test.
         /// </summary>
         /// <returns>Task reference</returns>
-        public async Task AzureServiceBus_EncryptMessage()
+        public async Task RabbitMqBus_EncryptMessage()
         {
             await this.Bus.Publish(new PingMessage()).ConfigureAwait(false);
+
             ConsumeContext<PingMessage> received = await this.handler.ConfigureAwait(false);
-            Assert.AreEqual(AzureKeyVault.EncryptedMessageSerializer.EncryptedContentType, received.ReceiveContext.ContentType);
+
+            Assert.AreEqual(EncryptedMessageSerializer.EncryptedContentType, received.ReceiveContext.ContentType);
         }
 
         /// <inheritdoc/>
-        protected override void ConfigureServiceBusReceiveEndpoint(IServiceBusReceiveEndpointConfigurator configurator)
+        protected override void ConfigureRabbitMqReceiveEndoint(IRabbitMqReceiveEndpointConfigurator configurator)
         {
-            this.handler = base.Handled<PingMessage>(configurator);
+            this.handler = this.Handled<PingMessage>(configurator);
         }
 
         /// <inheritdoc/>
-        protected override void ConfigureServiceBusBusHost(IServiceBusBusFactoryConfigurator configurator, IServiceBusHost host)
+        protected override void ConfigureRabbitMqBus(IRabbitMqBusFactoryConfigurator configurator)
         {
             var encrpytionConfiguration = new TestKeyProvider();
 
@@ -49,7 +52,7 @@
                 kv.KeyResolver = encrpytionConfiguration.KeyResolver;
             });
 
-            base.ConfigureServiceBusBusHost(configurator, host);
+            base.ConfigureRabbitMqBus(configurator);
         }
     }
 }

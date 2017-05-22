@@ -31,7 +31,7 @@
         }
 
         /// <summary>
-        /// Returns the CorrelationId for the message
+        /// Gets returns the CorrelationId for the message
         /// </summary>
         public Guid CorrelationId => this.id;
 
@@ -39,7 +39,7 @@
         /// Equalses the specified object.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <returns></returns>
+        /// <returns>True if equals</returns>
         public bool Equals(PingMessage obj)
         {
             if (ReferenceEquals(null, obj))
@@ -52,17 +52,10 @@
                 return true;
             }
 
-            return obj.id.Equals(id);
+            return obj.id.Equals(this.id);
         }
 
-        /// <summary>
-        /// Determines whether the specified <see cref="System.Object"/>, is equal to this instance.
-        /// </summary>
-        /// <param name="obj">The <see cref="System.Object"/> to compare with this instance.</param>
-        /// <returns>
-        /// <c>true</c> if the specified <see cref="System.Object"/> is equal to this instance;
-        /// otherwise, <c>false</c>.
-        /// </returns>
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))
@@ -80,16 +73,10 @@
                 return false;
             }
 
-            return Equals((PingMessage)obj);
+            return this.Equals((PingMessage)obj);
         }
 
-        /// <summary>
-        /// Returns a hash code for this instance.
-        /// </summary>
-        /// <returns>
-        /// A hash code for this instance, suitable for use in hashing algorithms and data structures
-        /// like a hash table.
-        /// </returns>
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return this.id.GetHashCode();

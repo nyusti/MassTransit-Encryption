@@ -21,7 +21,7 @@
         public TestKeyProvider()
         {
             const string testKeyId = "TestKey";
-            var cert = new X509Certificate2(@"encryptionkey.pfx", "Password", X509KeyStorageFlags.Exportable);
+            var cert = new X509Certificate2(@"encryption.pfx", "password", X509KeyStorageFlags.Exportable);
 
             var key = new RsaKey(testKeyId, (RSACryptoServiceProvider)cert.PrivateKey);
 

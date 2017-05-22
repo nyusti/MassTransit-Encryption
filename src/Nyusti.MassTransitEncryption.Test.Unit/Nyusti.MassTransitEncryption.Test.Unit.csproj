@@ -64,6 +64,9 @@
     <Reference Include="MassTransit.AzureServiceBusTransport, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MassTransit.AzureServiceBus.3.5.7\lib\net452\MassTransit.AzureServiceBusTransport.dll</HintPath>
     </Reference>
+    <Reference Include="MassTransit.RabbitMqTransport, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MassTransit.RabbitMQ.3.5.7\lib\net452\MassTransit.RabbitMqTransport.dll</HintPath>
+    </Reference>
     <Reference Include="MassTransit.TestFramework, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MassTransit.TestFramework.3.5.7\lib\net452\MassTransit.TestFramework.dll</HintPath>
     </Reference>
@@ -116,6 +119,9 @@
     <Reference Include="nunit.framework, Version=3.6.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="RabbitMQ.Client, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RabbitMQ.Client.4.1.3\lib\net451\RabbitMQ.Client.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
@@ -137,9 +143,12 @@
     <Compile Include="AzureServiceBusTestHarness.cs" />
     <Compile Include="BasicAzureServiceBusAccountSettings.cs" />
     <Compile Include="IAzureServiceBusTokenProvider.cs" />
+    <Compile Include="KeyVaultEncryptionOnRabbitMqBusTest.cs" />
     <Compile Include="PingMessage.cs" />
     <Compile Include="AzureServiceBusTestFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RabbitMqTestFixture.cs" />
+    <Compile Include="RabbitMqTestHarness.cs" />
     <Compile Include="TestKeyProvider.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +161,11 @@
       <Project>{22de259d-ce5c-4e93-8efa-d495b2504707}</Project>
       <Name>Nyusti.MassTransitEncryption.AzureKeyVault</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
