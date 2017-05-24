@@ -37,7 +37,7 @@
 
             this.NameFormatter = new RabbitMqMessageNameFormatter();
 
-            this.HostAddress = new Uri("rabbitmq://[::1]/");
+            this.HostAddress = new Uri("rabbitmq://127.0.0.1/");
         }
 
         /// <summary>

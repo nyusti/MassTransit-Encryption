@@ -27,9 +27,13 @@
         /// <returns>Task reference</returns>
         public async Task AzureServiceBus_EncryptMessage()
         {
-            await this.Bus.Publish(new PingMessage()).ConfigureAwait(false);
-            ConsumeContext<PingMessage> received = await this.handler.ConfigureAwait(false);
+            var message = new PingMessage();
+            await this.Bus.Publish(message).ConfigureAwait(false);
+
+            var received = await this.handler.ConfigureAwait(false);
+
             Assert.AreEqual(AzureKeyVault.EncryptedMessageSerializer.EncryptedContentType, received.ReceiveContext.ContentType);
+            Assert.AreEqual(message, received.Message);
         }
 
         /// <inheritdoc/>
